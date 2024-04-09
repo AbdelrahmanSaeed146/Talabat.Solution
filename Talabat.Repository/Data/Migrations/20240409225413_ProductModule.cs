@@ -2,13 +2,13 @@
 
 #nullable disable
 
-namespace Talabat.Repository.Data.Migration
+namespace Talabat.Repository.Data.Migrations
 {
     /// <inheritdoc />
     public partial class ProductModule : Migration
     {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)  
+        protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "ProductBrands",

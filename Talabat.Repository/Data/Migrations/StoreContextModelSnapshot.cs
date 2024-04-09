@@ -7,7 +7,7 @@ using Talabat.Repository.Data;
 
 #nullable disable
 
-namespace Talabat.Repository.Data.Migration
+namespace Talabat.Repository.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
     partial class StoreContextModelSnapshot : ModelSnapshot

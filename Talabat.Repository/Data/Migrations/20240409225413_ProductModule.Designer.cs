@@ -8,10 +8,10 @@ using Talabat.Repository.Data;
 
 #nullable disable
 
-namespace Talabat.Repository.Data.Migration
+namespace Talabat.Repository.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240409220650_ProductModule")]
+    [Migration("20240409225413_ProductModule")]
     partial class ProductModule
     {
         /// <inheritdoc />

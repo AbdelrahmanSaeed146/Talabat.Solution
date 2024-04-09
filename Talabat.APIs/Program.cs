@@ -1,14 +1,17 @@
 
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Talabat.Repository.Data;
 
 namespace Talabat.APIs
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
+
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -22,12 +25,33 @@ namespace Talabat.APIs
 
             builder.Services.AddDbContext<StoreContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnetion"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
             });
 
             #endregion
 
             var app = builder.Build();
+
+           using var Scope = app.Services.CreateScope();
+
+            var services = Scope.ServiceProvider;
+
+            var _dbContext = services.GetRequiredService<StoreContext>();
+
+            var LoogerFactory = services.GetRequiredService<ILoggerFactory>();
+
+            try
+            {
+                await _dbContext.Database.MigrateAsync();
+            }
+            catch (Exception ex)
+            {
+                var looger = LoogerFactory.CreateLogger<Program>();
+
+                looger.LogError(ex, "An Error Has been occured during Apply Migration");
+
+                
+            }
 
             #region Configure Kestrel Middlewares
             // Configure the HTTP request pipeline.
