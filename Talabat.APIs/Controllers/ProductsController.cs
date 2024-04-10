@@ -8,11 +8,19 @@ namespace Talabat.APIs.Controllers
  
     public class ProductsController : BaseApiController
     {
-        private readonly IGenericRepository<Product> _genericRepository;
+        private readonly IGenericRepository<Product> _productRepo;
 
-        public ProductsController(IGenericRepository<Product> genericRepository)
+        public ProductsController(IGenericRepository<Product> productRepo)
         {
-            _genericRepository = genericRepository;
+            _productRepo = productRepo;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        {
+            var products = await _productRepo.GetAllAsync();
+
+            return Ok(products);
         }
     }
 }
