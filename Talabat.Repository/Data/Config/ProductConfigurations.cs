@@ -20,11 +20,14 @@ namespace Talabat.Repository.Data.Config
 
             builder.HasOne(p => p.Brand)
                     .WithMany()
-                    .HasForeignKey(p => p.BrandId);
+                    .HasForeignKey(p => p.BrandId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                    ;
 
             builder.HasOne(p => p.Category)
                  .WithMany()
-                 .HasForeignKey(p => p.CategoryId);
+                 .HasForeignKey(p => p.CategoryId)
+                  .OnDelete(DeleteBehavior.Cascade); ;
 
 
         }
