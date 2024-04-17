@@ -37,7 +37,7 @@ namespace Talabat.APIs
 
             //builder.Services.AddAutoMapper(M => M.AddProfile( new MappingProfiles()));
             builder.Services.AddAutoMapper(typeof(MappingProfiles));
-
+           
             #endregion
 
             var app = builder.Build();
@@ -73,10 +73,7 @@ namespace Talabat.APIs
             }
 
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
+            app.UseStaticFiles();
             app.MapControllers(); 
             #endregion
 
