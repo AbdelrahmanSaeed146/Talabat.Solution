@@ -1,16 +1,17 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Http;
+using System.Net;
 using System.Text.Json;
 using Talabat.APIs.Errors;
 
 namespace Talabat.APIs.Middlewares
 {
-    public class ExceptionsMiddleware
+    public class ExceptionsMiddleware //: IMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionsMiddleware> _logger;
         private readonly IWebHostEnvironment _env;
 
-        public ExceptionsMiddleware(RequestDelegate next , ILogger<ExceptionsMiddleware> loggerFactory , IWebHostEnvironment env)
+        public ExceptionsMiddleware(RequestDelegate next, ILogger<ExceptionsMiddleware> loggerFactory , IWebHostEnvironment env)
         {
             _next = next;
             _logger = loggerFactory;
@@ -26,7 +27,7 @@ namespace Talabat.APIs.Middlewares
             {
 
                 _logger.LogError(ex.Message);
-                httpcontext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                httpcontext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 httpcontext.Response.ContentType = "application/json";
 
                 var response = _env.IsDevelopment() ?
@@ -39,5 +40,28 @@ namespace Talabat.APIs.Middlewares
             }
 
         }
+
+        //public async Task InvokeAsync(HttpContext httpcontext, RequestDelegate _next)
+        //{
+        //    try
+        //    {
+        //        await _next.Invoke(httpcontext);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        _logger.LogError(ex.Message);
+        //        httpcontext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        //        httpcontext.Response.ContentType = "application/json";
+
+        //        var response = _env.IsDevelopment() ?
+        //            new ApiExceptionsResponse((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
+        //            : new ApiExceptionsResponse((int)HttpStatusCode.InternalServerError);
+        //        var options = new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        //        var json = JsonSerializer.Serialize(response, options);
+
+        //        httpcontext.Response.WriteAsync(json);
+        //    }
+        //}
     }
 }
