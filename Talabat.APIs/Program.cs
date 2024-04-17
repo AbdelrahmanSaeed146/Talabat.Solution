@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Talabat.APIs.Errors;
 using Talabat.APIs.Helpers;
+using Talabat.APIs.Middlewares;
 using Talabat.Core.Entities;
 using Talabat.Core.Repositories;
 using Talabat.Repository;
@@ -23,6 +24,8 @@ namespace Talabat.APIs
             // Add services to the container.
 
             #region Configure Services
+
+       
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -85,6 +88,8 @@ namespace Talabat.APIs
 
             #region Configure Kestrel Middlewares
             // Configure the HTTP request pipeline.
+
+            app.UseMiddleware<ExceptionsMiddleware>();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
