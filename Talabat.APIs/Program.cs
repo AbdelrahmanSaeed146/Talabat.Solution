@@ -96,6 +96,8 @@ namespace Talabat.APIs
                 app.UseSwaggerUI();
             }
 
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.MapControllers(); 
