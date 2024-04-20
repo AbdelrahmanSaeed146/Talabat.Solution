@@ -17,19 +17,29 @@ namespace Talabat.Repository
             
         //}
 
-        public static IQueryable<T> GetQuery(IQueryable<T> InputQuery , ISpecifications<T> Spec)
+        public static IQueryable<T> GetQuery(IQueryable<T> InputQuery , ISpecifications<T> spec)
         {
-            var Query = InputQuery;
+            var query = InputQuery;
 
-            if (Spec.Criretia is not null)
+            if (spec.Criretia is not null)
             {
-                Query = Query.Where(Spec.Criretia);
+                query = query.Where(spec.Criretia);
             }
 
-            Query = Spec.Includes.Aggregate(Query, (CurrentQuery, IncludeExpression) => CurrentQuery.Include(IncludeExpression));
+            if (spec.OrderBy is not null )
+            {
+                query = query.OrderBy(spec.OrderBy);
+            }
+
+            else if (spec.OrderByDesc is not null )
+            {
+                query = query.OrderByDescending(spec.OrderByDesc);
+            }
+
+            query = spec.Includes.Aggregate(query, (CurrentQuery, IncludeExpression) => CurrentQuery.Include(IncludeExpression));
 
 
-            return Query;
+            return query;
         }
 
     }

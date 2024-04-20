@@ -24,8 +24,7 @@ namespace Talabat.Repository
         #region Without Specifications
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {
-            //if (typeof(T) == typeof(Product))
-            //    return (IEnumerable<T>)await _dbContext.Set<Product>().Include(p => p.Brand).Include(p => p.Category).ToListAsync();
+ 
             return await _dbContext.Set<T>().ToListAsync();
 
         }
