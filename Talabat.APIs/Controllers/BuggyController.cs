@@ -33,7 +33,7 @@ namespace Talabat.APIs.Controllers
         {
             var product = _dbcontext.Products.Find(100);
             var ProductToReturn = product.ToString();
-       
+
             return Ok(ProductToReturn);
         }
 
@@ -48,7 +48,7 @@ namespace Talabat.APIs.Controllers
 
 
         [HttpGet("badrequset/{id}")]
-        public ActionResult GetBadRequestById(int id ) // Validation Error
+        public ActionResult GetBadRequestById(int id) // Validation Error
         {
             return Ok();
         }

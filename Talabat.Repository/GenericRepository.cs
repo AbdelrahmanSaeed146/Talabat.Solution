@@ -15,26 +15,26 @@ namespace Talabat.Repository
     {
         private readonly StoreContext _dbContext;
 
+
         public GenericRepository(StoreContext dbContext)
         {
             _dbContext = dbContext;
         }
 
+        #region Without Specifications
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            //if (typeof(T) == typeof(Product))
+            //    return (IEnumerable<T>)await _dbContext.Set<Product>().Include(p => p.Brand).Include(p => p.Category).ToListAsync();
+            return await _dbContext.Set<T>().ToListAsync();
 
-           #region Without Specifications
-        //public async Task<IEnumerable<T>> GetAllAsync()
-        //{
-        //    if (typeof(T) == typeof(Product))
-        //        return (IEnumerable<T>)await _dbContext.Set<Product>().Include(p => p.Brand).Include(p => p.Category).ToListAsync();
-        //    return await _dbContext.Set<T>().ToListAsync();
+        }
 
-        //}
+        public async Task<T?> GetAsync(int id)
+        {
+            return await _dbContext.Set<T>().FindAsync(id);
 
-        //public async Task<T?> GetAsync(int id)
-        //{
-        //    return await _dbContext.Set<T>().FindAsync(id);
-
-        //} 
+        }
         #endregion
 
         public async Task<IEnumerable<T>> GetAllWithSpecAsync(ISpecifications<T> Spec)
@@ -42,7 +42,7 @@ namespace Talabat.Repository
             return await ApplySpecification(Spec).ToListAsync();
         }
 
-  
+      
 
         public async Task<T> GetByIdWithSpecAsync(ISpecifications<T> Spec)
         {
