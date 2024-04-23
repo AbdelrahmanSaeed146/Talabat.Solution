@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,9 @@ namespace Talabat.Repository
                 query = query.Where(spec.Criretia);
             }
 
-            if (spec.OrderBy is not null )
+            if (spec.OrderBy is not null  )
             {
-                query = query.OrderBy(spec.OrderBy);
+                query =  query.OrderBy(spec.OrderBy);
             }
 
             else if (spec.OrderByDesc is not null )
