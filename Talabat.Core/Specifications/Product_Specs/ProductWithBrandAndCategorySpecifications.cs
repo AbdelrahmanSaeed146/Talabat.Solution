@@ -11,20 +11,20 @@ namespace Talabat.Core.Specifications.Product_Specs
     public class ProductWithBrandAndCategorySpecifications : BaseSpecifications<Product>
     {
 
-        public ProductWithBrandAndCategorySpecifications(string? sort, int? brandId, int? cateid) 
+        public ProductWithBrandAndCategorySpecifications(ProductSpecParams Params) 
             :base
             (
                  p=> 
-                 (!brandId.HasValue || p.BrandId == brandId)
+                 (!Params.brandId.HasValue || p.BrandId == Params.brandId)
                  &&
-                 (!cateid.HasValue || p.CategoryId == cateid)
+                 (!Params.cateId.HasValue || p.CategoryId == Params.cateId)
             )
         {
             AddIncludes();
 
-            if (!string.IsNullOrEmpty(sort))
+            if (!string.IsNullOrEmpty(Params.Sort))
             {
-                switch(sort)
+                switch(Params.Sort)
                 {
                     case "priceAsc":
                         AddOrderBy(p => p.Price);
@@ -41,6 +41,9 @@ namespace Talabat.Core.Specifications.Product_Specs
 
             else
                 AddOrderBy(p=>p.Name);
+
+
+            ApplyPagination(Params.PageSize * (Params.PageIndex - 1) , Params.PageIndex);
         }
 
      
