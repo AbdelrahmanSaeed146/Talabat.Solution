@@ -14,7 +14,9 @@ namespace Talabat.Core.Specifications.Product_Specs
         public ProductWithBrandAndCategorySpecifications(ProductSpecParams Params) 
             :base
             (
-                 p=> 
+                 p=>
+                (string.IsNullOrEmpty(Params.Search) || p.Name.ToLower().Contains(Params.Search))
+                 &&
                  (!Params.brandId.HasValue || p.BrandId == Params.brandId)
                  &&
                  (!Params.cateId.HasValue || p.CategoryId == Params.cateId)

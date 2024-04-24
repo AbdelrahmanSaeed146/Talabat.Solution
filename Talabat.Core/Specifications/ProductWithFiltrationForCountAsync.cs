@@ -13,6 +13,8 @@ namespace Talabat.Core.Specifications
               : base
             (
                  p =>
+                 (string.IsNullOrEmpty(Params.Search) || p.Name.ToLower().Contains(Params.Search))
+                 &&
                  (!Params.brandId.HasValue || p.BrandId == Params.brandId)
                  &&
                  (!Params.cateId.HasValue || p.CategoryId == Params.cateId)
