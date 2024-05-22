@@ -19,7 +19,7 @@ namespace Talabat.Core.Specifications.Product_Specs
                  &&
                  (!Params.brandId.HasValue || p.BrandId == Params.brandId)
                  &&
-                 (!Params.cateId.HasValue || p.CategoryId == Params.cateId)
+                 (!Params.categoryId.HasValue || p.CategoryId == Params.categoryId)
             )
         {
             AddIncludes();
@@ -45,7 +45,7 @@ namespace Talabat.Core.Specifications.Product_Specs
                 AddOrderBy(p=>p.Name);
 
 
-            ApplyPagination(Params.PageSize * (Params.PageIndex - 1) , Params.PageIndex);
+            ApplyPagination(Params.PageSize * (Params.PageIndex - 1) , Params.PageSize);
         }
 
      

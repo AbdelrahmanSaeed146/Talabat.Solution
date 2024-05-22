@@ -17,7 +17,7 @@ namespace Talabat.Core.Specifications
                  &&
                  (!Params.brandId.HasValue || p.BrandId == Params.brandId)
                  &&
-                 (!Params.cateId.HasValue || p.CategoryId == Params.cateId)
+                 (!Params.categoryId.HasValue || p.CategoryId == Params.categoryId)
             )
         {
             
